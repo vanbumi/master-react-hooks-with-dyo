@@ -14,7 +14,17 @@ function Task() {
         setTasks([ ...tasks, { taskText, id: uuidv4() } ]);
     }
 
-    console.log('tasks', tasks)
+    const completeTask = completedTask => () => {
+        setCompletedTasks([...completedTasks, completedTask ]);
+        setTasks(tasks.filter(task => task.id !== completedTask.id));
+    }
+
+    const deleteTask = task => () => {
+        setCompletedTasks(completedTasks.filter(t => t.id !== task.id));
+    }
+
+    console.log('tasks', tasks);
+    console.log('completedTasks', completedTasks);
 
     return (
         <div>
@@ -27,7 +37,23 @@ function Task() {
                 {
                     tasks.map(task => {
                         return (
-                        <div key={task.id}>{task.taskText}</div>
+                        <div key={task.id} onClick={completeTask(task)}>
+                            {task.taskText}
+                        </div>
+                        )
+                    })
+                }
+            </div>
+            <div className='completed-list'>
+                {
+                    completedTasks.map(task => {
+                        const { id, taskText } = task;
+
+                        return (
+                        <div key={id}>
+                            {taskText} {' '}
+                            <span onClick={deleteTask(task)} className='delete-task'>X</span>
+                        </div>
                         )
                     })
                 }
