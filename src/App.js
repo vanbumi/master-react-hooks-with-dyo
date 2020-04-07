@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Joke from './Joke';
 import Stories from './Stories';
+import Task from './Task';
 
 const App = () => {
   const [userQuery, setUserQuery] = useState('');
@@ -20,7 +21,6 @@ const App = () => {
     window.open(`https://google.com/search?q=${userQuery}`, '_blank');
   }
 
-
   return (
     <div className="App">
       <h1>Hello Medio!</h1>
@@ -30,6 +30,8 @@ const App = () => {
       </div>
       <hr/>
       <Joke />
+      <hr />
+      <Task />
       <hr/>
       <Stories />
     </div>
